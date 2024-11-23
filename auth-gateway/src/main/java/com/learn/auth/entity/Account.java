@@ -1,0 +1,44 @@
+package com.learn.auth.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+
+@Entity
+public class Account {
+
+    @Id
+    private String id;
+
+    @NotNull(message = "Cannot be empty")
+    private String Username;
+
+    @NotNull(message = "Cannot be empty")
+    private String password;
+
+    public Account(){};
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
