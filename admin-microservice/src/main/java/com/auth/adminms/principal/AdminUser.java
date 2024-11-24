@@ -1,4 +1,4 @@
-package com.learn.auth.configuration.principal;
+package com.auth.adminms.principal;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +12,8 @@ public class AdminUser implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String username = "user";
-    private String password = "password";
-
+    private String username;
+    private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -23,12 +22,12 @@ public class AdminUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return username;
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return password;
     }
 
     @Override

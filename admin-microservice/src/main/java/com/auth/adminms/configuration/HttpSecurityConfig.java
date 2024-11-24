@@ -17,7 +17,7 @@ public class HttpSecurityConfig {
                 httpBasic(httpBasic->httpBasic.disable()).
                       formLogin(form->form.disable());
 
-        http.authorizeHttpRequests(request->request.anyRequest().permitAll());
+        http.authorizeHttpRequests(request->request.anyRequest().authenticated());
         return http.build();
 
 
