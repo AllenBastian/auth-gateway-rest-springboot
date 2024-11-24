@@ -4,6 +4,10 @@
 server:
   port: 8080
 
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
 spring:
   application:
     name: gateway
@@ -13,6 +17,7 @@ spring:
         - id: authentication-ms
           uri: http://localhost:8081
           predicates:
-            -Path=/api/v1/auth/**
+            - Path=/api/v1/auth/**
+
 
 

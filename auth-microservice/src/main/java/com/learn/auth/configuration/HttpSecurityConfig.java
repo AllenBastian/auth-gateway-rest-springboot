@@ -30,10 +30,10 @@ public class HttpSecurityConfig {
 
         http.httpBasic(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
         http.formLogin(AbstractHttpConfigurer::disable);
-               http.securityMatcher("/api/v1/admin/**").authenticationManager(adminAuthManager).
-                       authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/admin/auth/**")).
+               http.securityMatcher("/api/v1/auth/admin/**").authenticationManager(adminAuthManager).
+                       authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/auth/admin/**")).
                                permitAll()
-                        .anyRequest().permitAll());
+                        .anyRequest().authenticated());
 
         return http.build();
 
@@ -44,8 +44,8 @@ public class HttpSecurityConfig {
 
         http.httpBasic(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
         http.formLogin(AbstractHttpConfigurer::disable);
-        http.securityMatcher("/api/v1/user/**").authenticationManager(userAuthManager).
-                authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/user/auth/**")).
+        http.securityMatcher("/api/v1/auth/user/**").authenticationManager(userAuthManager).
+                authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/auth/user/**")).
                         permitAll()
                         .anyRequest().authenticated());
 
