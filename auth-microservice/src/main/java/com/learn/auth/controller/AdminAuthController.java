@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v1/admin/auth")
+@RequestMapping(path = "/api/v1/auth/admin")
 public class AdminAuthController {
 
 
