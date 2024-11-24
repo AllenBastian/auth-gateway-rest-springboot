@@ -1,4 +1,4 @@
-package com.auth.admin_ms;
+package com.auth.adminms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

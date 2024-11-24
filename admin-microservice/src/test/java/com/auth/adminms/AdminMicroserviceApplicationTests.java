@@ -1,4 +1,4 @@
-package com.auth.admin_ms;
+package com.auth.adminms;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
