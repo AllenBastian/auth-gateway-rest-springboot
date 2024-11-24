@@ -20,7 +20,7 @@ spring:
   session:
     store-type: redis
     redis:
-      flush-mode : IMMEDIATE
+      flush-mode: IMMEDIATE
 
 
 

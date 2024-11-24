@@ -35,7 +35,8 @@ public class AdminAuthController {
 
         System.out.println(admin.getUsername());
         System.out.println(admin.getPassword());
-        Authentication adminAuthentication = new UsernamePasswordAuthenticationToken(admin.getUsername(),admin.getPassword());
+        Authentication adminAuthentication =
+                UsernamePasswordAuthenticationToken.unauthenticated(admin.getUsername(),admin.getPassword());
         Authentication authenticationResponse = adminAuthManager.authenticate(adminAuthentication);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authenticationResponse);

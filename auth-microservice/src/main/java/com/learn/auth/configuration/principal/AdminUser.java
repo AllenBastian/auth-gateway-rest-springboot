@@ -1,5 +1,9 @@
 package com.learn.auth.configuration.principal;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,6 +11,9 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 
+
+@JsonDeserialize
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class AdminUser implements UserDetails {
 
     @Serial

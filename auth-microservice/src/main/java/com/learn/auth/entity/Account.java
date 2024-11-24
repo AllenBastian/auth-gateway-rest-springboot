@@ -3,10 +3,12 @@ package com.learn.auth.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.boot.jackson.JsonComponent;
 
 import java.io.Serializable;
 
 @Entity
+@JsonComponent
 public class Account implements Serializable {
 
     @Id
