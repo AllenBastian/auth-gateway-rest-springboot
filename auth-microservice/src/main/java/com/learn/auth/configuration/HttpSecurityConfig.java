@@ -33,7 +33,7 @@ public class HttpSecurityConfig {
                http.securityMatcher("/api/v1/admin/**").authenticationManager(adminAuthManager).
                        authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/admin/auth/**")).
                                permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
 
         return http.build();
 

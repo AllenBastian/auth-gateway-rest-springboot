@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/admin/routes")
+@RequestMapping(path = "/api/v1/app/admin/routes")
 public class AdminController {
 
 
