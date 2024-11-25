@@ -74,12 +74,12 @@ public class AdminAuthController {
         System.out.println(newAuth.getAuthorities());
         System.out.println(request.getSession().getId());
         securityContextRepository.saveContext(context,request,response);
-        return ResponseEntity.status(HttpStatus.OK).body("check");
+        return ResponseEntity.status(HttpStatus.OK).body("login success admin");
     }
 
     @GetMapping(path = "/test")
     public ResponseEntity<String> testController(){
-        return ResponseEntity.status(HttpStatus.OK).body("testing");
+        return ResponseEntity.status(HttpStatus.OK).body("auth-admin test");
     }
 
     @PostMapping(path = "/logout")
@@ -91,6 +91,6 @@ public class AdminAuthController {
 
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body("logout success from admin");
     }
 }

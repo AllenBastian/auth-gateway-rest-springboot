@@ -15,12 +15,12 @@ public class AdminController {
 
     @GetMapping(path = "/get")
     public ResponseEntity<String> getRoute(){
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body("Admin service get");
     }
 
 
     @PostMapping (path = "/post")
     public ResponseEntity<String> PostRoute(){
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        return ResponseEntity.status(HttpStatus.OK).body("Admin service post");
     }
 }

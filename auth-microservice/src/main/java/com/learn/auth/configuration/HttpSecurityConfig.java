@@ -25,6 +25,10 @@ public class HttpSecurityConfig {
 
 
 
+    /*the hasAuthority method is called here in auth service just to test and understand no need for this
+        since all are routed through gateway
+     */
+
     @Bean
     public SecurityFilterChain adminConfig(HttpSecurity http) throws Exception{
 
@@ -32,9 +36,9 @@ public class HttpSecurityConfig {
         http.formLogin(AbstractHttpConfigurer::disable);
                http.securityMatcher("/api/v1/auth/admin/**").authenticationManager(adminAuthManager).
                        authorizeHttpRequests((requests)->(requests.
-                               requestMatchers("/api/v1/auth/admin/login","/api/v1/auth/admin/logout")).
+                               requestMatchers("/api/v1/auth/admin/login")).
                                permitAll()
-                        .requestMatchers("/api/v1/auth/admin/test").hasAuthority("ADMIN").
+                        .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN").
                                anyRequest().authenticated());
 
         return http.build();
@@ -47,8 +51,8 @@ public class HttpSecurityConfig {
         http.httpBasic(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
         http.formLogin(AbstractHttpConfigurer::disable);
         http.securityMatcher("/api/v1/auth/user/**").authenticationManager(userAuthManager).
-                authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/auth/user/**")).
-                        permitAll()
+                authorizeHttpRequests((requests)->(requests.requestMatchers("/api/v1/auth/user/login")).
+                        permitAll().requestMatchers("/api/v1/auth/user/**").hasAuthority("USER")
                         .anyRequest().authenticated());
 
         return http.build();

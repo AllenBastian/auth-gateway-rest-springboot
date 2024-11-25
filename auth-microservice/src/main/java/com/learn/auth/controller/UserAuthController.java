@@ -15,12 +15,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/v1/auth/user")
@@ -37,10 +35,12 @@ public class UserAuthController {
     public ResponseEntity<String> loginController(@RequestBody Account user, HttpServletRequest request,
                                                   HttpServletResponse response){
 
-        Authentication adminAuthentication = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
-        Authentication authenticationResponse = userAuthManager.authenticate(adminAuthentication);
+        Authentication userAuthentication = UsernamePasswordAuthenticationToken.unauthenticated(
+                user.getUsername(),user.getPassword()
+        );
+        Authentication authenticationResponse = userAuthManager.authenticate(userAuthentication);
 
-        NormalUser normalUser = (NormalUser) adminAuthentication.getPrincipal();
+        NormalUser normalUser = (NormalUser) authenticationResponse.getPrincipal();
 
         //new principal
         User principal = new User(
@@ -61,6 +61,22 @@ public class UserAuthController {
         securityContextRepository.saveContext(context,request,response);
 
 
-        return ResponseEntity.status(HttpStatus.OK).body("check");
+        return ResponseEntity.status(HttpStatus.OK).body("user login success");
+    }
+
+    @GetMapping(path = "/test")
+    public ResponseEntity<String> testController(){
+        return ResponseEntity.status(HttpStatus.OK).body("auth-user test");
+    }
+
+    @PostMapping(path= "/logout")
+    public ResponseEntity<String> logoutController(HttpServletRequest request,HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication!=null){
+            new SecurityContextLogoutHandler().logout(request,response,authentication);
+            request.getSession().invalidate();
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("logout success from user");
     }
 }
