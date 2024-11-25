@@ -1,4 +1,4 @@
-package com.auth.adminms.principal;
+package com.auth.adminms.configuration.principal;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -12,8 +12,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 
-@JsonDeserialize
-@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class AdminUser implements UserDetails {
 
     @Serial
