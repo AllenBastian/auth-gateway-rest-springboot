@@ -8,12 +8,13 @@
   Limitations and issue with this setup
 
    Currently the eventhough UserDetails has a custom class implemeting it, before saving the context into session, new User Object (org.springframework.security.core.userdetails) is instatiated with
-   the principal inorder for other services to serialize it properly. Eventhough this works, this limits us from having our own custom methods other than in User 
+   the principal inorder for other services to deserialize it properly. Eventhough this works, this limits us from having our own custom methods other than in User 
    (org.springframework.security.core.userdetails). 
 
    tried methods-
      - https://docs.spring.io/spring-session/reference/configuration/redis.html#serializing-session-using-json (not working)
-     - Added Mixins for the User class
+     - Added Mixins for the User class (not wroking)
+     - Configure exact same path (same classnames) for UserDetails in all services (this works)
 
   This is how the security context is stored in Redis when deserialization error occurs :
   
@@ -28,3 +29,5 @@ This is how security context is stored with current setup:
 4) "{\"@class\":\"org.springframework.security.core.context.SecurityContextImpl\",\"authentication\":{\"@class\":\"org.springframework.security.authentication.UsernamePasswordAuthenticationToken\",\"authorities\":[\"java.util.Collections$UnmodifiableRandomAccessList\",[{\"@class\":\"org.springframework.security.core.authority.SimpleGrantedAuthority\",\"authority\":\"ADMIN\"}]],\"details\":null,\"authenticated\":true,\"principal\":{\"@class\":\"org.springframework.security.core.userdetails.User\",\"password\":\"password\",\"username\":\"user\",\"authorities\":[\"java.util.Collections$UnmodifiableSet\",[{\"@class\":\"org.springframework.security.core.authority.SimpleGrantedAuthority\",\"authority\":\"ADMIN\"}]],\"accountNonExpired\":true,\"accountNonLocked\":true,\"credentialsNonExpired\":true,\"enabled\":true},\"credentials\":null}}"
 
 as we can see eventhough this has @class annotation, the classPath is of the common class of User (org.springframework.security.core.userdetails) which by default spring-secuirty has so it is deserialized properly and working
+
+If there is any solution or the correct way to this please help.
