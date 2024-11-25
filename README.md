@@ -22,7 +22,7 @@ Although this setup works, it **limits** us from having our own custom methods o
     - Followed this section [Spring Session Redis Documentation] about configuring serialization for distributed environments (https://docs.spring.io/spring-session/reference/configuration/redis.html#serializing-session-using-json) - **Not working**.
     
 2. **Mixin for Custom User Class**:
-    - Added **Mixins** for the `User` class - **Not working**.
+    - Added **Mixins** for the `User` class (providing the mixin to `ObjectMapper` of all services) - **Not working**.
     
 3. **Shared Class Paths**:
     - Configured the **exact same path** (class names) for `UserDetails` in all services - **This works**, but it leads to duplicated code and inconvenience.
