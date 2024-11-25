@@ -1,6 +1,8 @@
 package com.learn.auth.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learn.auth.configuration.principal.AdminUser;
 import com.learn.auth.entity.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/v1/auth/admin")
 public class AdminAuthController {
 
+    @Autowired
+    ObjectMapper objectMapper;
 
     private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
@@ -31,10 +35,15 @@ public class AdminAuthController {
 
     @PostMapping(path = "/login")
     public ResponseEntity<String> loginController(@RequestBody Account admin, HttpServletRequest request,
-                                                  HttpServletResponse response){
+                                                  HttpServletResponse response) throws  Exception{
 
         System.out.println(admin.getUsername());
         System.out.println(admin.getPassword());
+
+        //usage of mixin
+        AdminUser user = new AdminUser();
+//        System.out.println(objectMapper.writeValueAsString(user));
+
         Authentication adminAuthentication =
                 UsernamePasswordAuthenticationToken.unauthenticated(admin.getUsername(),admin.getPassword());
         Authentication authenticationResponse = adminAuthManager.authenticate(adminAuthentication);

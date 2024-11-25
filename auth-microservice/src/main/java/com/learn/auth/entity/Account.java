@@ -8,8 +8,7 @@ import org.springframework.boot.jackson.JsonComponent;
 import java.io.Serializable;
 
 @Entity
-@JsonComponent
-public class Account implements Serializable {
+public class Account  {
 
     @Id
     private String id;
