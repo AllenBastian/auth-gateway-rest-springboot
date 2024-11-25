@@ -39,15 +39,22 @@ public class AdminAuthController {
                                                   HttpServletResponse response) throws  Exception{
 
 
+        //creates a unauthenticated object for giving to DAOauthprovider
         Authentication adminAuthentication = UsernamePasswordAuthenticationToken.
                 unauthenticated(admin.getUsername(),admin.getPassword());
 
+
+        //authenticate using admin auth manager
         Authentication authenticationResponse = adminAuthManager.
                 authenticate(adminAuthentication);
 
+
+        //get principal which is usually a userDetails object to admin user
         AdminUser adminUser = (AdminUser) authenticationResponse.getPrincipal();
         SecurityContext context = SecurityContextHolder.createEmptyContext();
 
+
+        //create a new principal with default security class User
         User user = new User(
                 adminUser.getUsername(),
                 adminUser.getPassword(),
@@ -58,6 +65,7 @@ public class AdminAuthController {
                 adminUser.getAuthorities()
         );
 
+        //create new authentication object
         Authentication newAuth = new UsernamePasswordAuthenticationToken
                 (user,authenticationResponse.getCredentials(),
                         authenticationResponse.getAuthorities());
