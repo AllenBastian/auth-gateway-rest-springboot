@@ -3,18 +3,14 @@ package com.learn.auth.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learn.auth.configuration.principal.AdminUser;
-import com.learn.auth.entity.Account;
-import com.learn.auth.json.AccountMixin;
-import com.learn.auth.json.AdminUserMixin;
+import com.learn.auth.configuration.principal.NormalUser;
+import com.learn.auth.json.Mixin;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
@@ -39,7 +35,8 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     //required to map security modules such as context into redis
     private ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.addMixIn(AdminUser.class, AdminUserMixin.class);
+        mapper.addMixIn(AdminUser.class, Mixin.class);
+        mapper.addMixIn(NormalUser.class, Mixin.class);
         mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
         return mapper;
     }

@@ -1,7 +1,6 @@
 package com.learn.auth.configuration.service;
 
-import com.learn.auth.configuration.principal.AdminUser;
-import com.learn.auth.configuration.principal.User;
+import com.learn.auth.configuration.principal.NormalUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +16,6 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("not found");
         }
 
-        return new User();
+        return new NormalUser();
     }
 }

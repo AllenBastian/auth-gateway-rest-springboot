@@ -34,7 +34,8 @@ public class HttpSecurityConfig {
                        authorizeHttpRequests((requests)->(requests.
                                requestMatchers("/api/v1/auth/admin/login","/api/v1/auth/admin/logout")).
                                permitAll()
-                        .requestMatchers("/api/v1/auth/admin/test").authenticated());
+                        .requestMatchers("/api/v1/auth/admin/test").hasAuthority("ADMIN").
+                               anyRequest().authenticated());
 
         return http.build();
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.boot.jackson.JsonComponent;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
@@ -19,14 +20,15 @@ public class AdminUser implements UserDetails {
 
 
 
-    private String username = "user";
+    private String username = "admin";
     private String password = "password";
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> a = new ArrayList<>();
-        return a;
+        List<GrantedAuthority> granted = new ArrayList<>();
+        granted.add(new SimpleGrantedAuthority("ADMIN"));
+        return granted;
     }
 
     @Override

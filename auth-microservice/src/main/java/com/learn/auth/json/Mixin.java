@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public abstract  class AdminUserMixin {
+public abstract  class Mixin {
 
 
         @JsonProperty("username")
@@ -14,7 +14,7 @@ public abstract  class AdminUserMixin {
         @JsonProperty("password")
         private String password;
 
-        @JsonIgnore
+        @JsonProperty("authorities")
         abstract Collection<? extends GrantedAuthority> getAuthorities();
 
         @JsonIgnore

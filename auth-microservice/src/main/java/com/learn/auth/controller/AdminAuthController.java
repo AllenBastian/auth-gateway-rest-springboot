@@ -71,6 +71,7 @@ public class AdminAuthController {
                         authenticationResponse.getAuthorities());
 
         context.setAuthentication(newAuth);
+        System.out.println(newAuth.getAuthorities());
         System.out.println(request.getSession().getId());
         securityContextRepository.saveContext(context,request,response);
         return ResponseEntity.status(HttpStatus.OK).body("check");

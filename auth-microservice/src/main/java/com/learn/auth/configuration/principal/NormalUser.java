@@ -1,31 +1,33 @@
 package com.learn.auth.configuration.principal;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-public class User implements UserDetails {
+public class NormalUser implements UserDetails {
 
-
-    @Serial
-    private static final long serialVersionUID = 1L;
+    private String username = "user";
+    private String password = "password";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> granted = new ArrayList<>();
+        granted.add(new SimpleGrantedAuthority("USER"));
+        return granted;
     }
 
     @Override
     public String getPassword() {
-        return "passwords";
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return "user";
+        return username;
     }
 
     @Override
