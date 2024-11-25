@@ -30,8 +30,8 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     }
 
     @Bean
-    public RedisSerializer<Object> springSessionDefaultRedisSerializer(ObjectMapper objectMapper) {
-        return new GenericJackson2JsonRedisSerializer(objectMapper);
+    public RedisSerializer<Object> springSessionDefaultRedisSerializer() {
+        return new GenericJackson2JsonRedisSerializer(objectMapper());
     }
 
 
@@ -39,7 +39,7 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     //required to map security modules such as context into redis
     private ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-//        mapper.addMixIn(AdminUser.class, AdminUserMixin.class);
+        mapper.addMixIn(AdminUser.class, AdminUserMixin.class);
         mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
         return mapper;
     }

@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 public class AdminUser implements UserDetails {
@@ -23,7 +25,8 @@ public class AdminUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> a = new ArrayList<>();
+        return a;
     }
 
     @Override
@@ -55,4 +58,6 @@ public class AdminUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

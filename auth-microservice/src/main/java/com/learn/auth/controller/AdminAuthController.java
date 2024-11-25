@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
@@ -37,19 +38,31 @@ public class AdminAuthController {
     public ResponseEntity<String> loginController(@RequestBody Account admin, HttpServletRequest request,
                                                   HttpServletResponse response) throws  Exception{
 
-        System.out.println(admin.getUsername());
-        System.out.println(admin.getPassword());
 
-        //usage of mixin
-        AdminUser user = new AdminUser();
-//        System.out.println(objectMapper.writeValueAsString(user));
+        Authentication adminAuthentication = UsernamePasswordAuthenticationToken.
+                unauthenticated(admin.getUsername(),admin.getPassword());
 
-        Authentication adminAuthentication =
-                UsernamePasswordAuthenticationToken.unauthenticated(admin.getUsername(),admin.getPassword());
-        Authentication authenticationResponse = adminAuthManager.authenticate(adminAuthentication);
+        Authentication authenticationResponse = adminAuthManager.
+                authenticate(adminAuthentication);
+
+        AdminUser adminUser = (AdminUser) authenticationResponse.getPrincipal();
         SecurityContext context = SecurityContextHolder.createEmptyContext();
-        context.setAuthentication(authenticationResponse);
 
+        User user = new User(
+                adminUser.getUsername(),
+                adminUser.getPassword(),
+                adminUser.isEnabled(),
+                adminUser.isAccountNonExpired(),
+                adminUser.isCredentialsNonExpired(),
+                adminUser.isAccountNonLocked(),
+                adminUser.getAuthorities()
+        );
+
+        Authentication newAuth = new UsernamePasswordAuthenticationToken
+                (user,authenticationResponse.getCredentials(),
+                        authenticationResponse.getAuthorities());
+
+        context.setAuthentication(newAuth);
         System.out.println(request.getSession().getId());
         securityContextRepository.saveContext(context,request,response);
         return ResponseEntity.status(HttpStatus.OK).body("check");
