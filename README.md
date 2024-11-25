@@ -49,4 +49,4 @@ In this case, **the principal serialized** and stored here has the `@class` anno
 
 In this setup, even though the `@class` annotation is used, **the class path** corresponds to the common **`User` class** (`org.springframework.security.core.userdetails.User`), which is the default class used by **Spring Security**, so it is deserialized properly and everything works.
 
-## If there is any solution or the correct way to do this please help.
+## If there is any alternative  solution or the better way to do this please help.
