@@ -2,8 +2,8 @@ package com.auth.adminms.configuration;
 
 
 
-import com.auth.adminms.configuration.principal.AdminUser;
-import com.auth.adminms.json.AdminUserMixin;
+
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,6 @@ public class HttpSessionConfig implements BeanClassLoaderAware {
     //required to map security modules such as context into redis
     private ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-//        mapper.addMixIn(AdminUser.class, AdminUserMixin.class);
         mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
         return mapper;
     }

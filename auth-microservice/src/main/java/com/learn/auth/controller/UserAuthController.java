@@ -57,6 +57,7 @@ public class UserAuthController {
         Authentication newAuth = new UsernamePasswordAuthenticationToken(principal,authenticationResponse.getCredentials(),
                 authenticationResponse.getAuthorities());
 
+        System.out.println(newAuth.getAuthorities());
         context.setAuthentication(newAuth);
         securityContextRepository.saveContext(context,request,response);
 
